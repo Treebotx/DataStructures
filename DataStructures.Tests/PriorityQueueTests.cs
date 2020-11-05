@@ -57,6 +57,14 @@ namespace DataStructures.Tests
         }
 
         [Fact]
+        public void Peek_ThrowsInvalidOperationExceptionWhenEmpty()
+        {
+            var pq = new PriorityQueue<int>();
+
+            Assert.Throws<InvalidOperationException>(() => pq.Peek());
+        }
+
+        [Fact]
         public void Peek_OnAPriorityQueueWithOneElementReturnsThatElement()
         {
             var pq = new PriorityQueue<int>();
@@ -77,6 +85,14 @@ namespace DataStructures.Tests
             foreach (var item in array) pq.Add(item);
 
             Assert.Equal(expected, pq.Peek());
+        }
+
+        [Fact]
+        public void Poll_ThrowsInvalidOperationExceptionWhenEmpty()
+        {
+            var pq = new PriorityQueue<int>();
+
+            Assert.Throws<InvalidOperationException>(() => pq.Poll());
         }
 
         [Theory]
@@ -124,7 +140,7 @@ namespace DataStructures.Tests
         [InlineData(new int[] { 1, 2 }, 555)]
         [InlineData(new int[] { 3, 2, 3 }, 555)]
         [InlineData(new int[] { 50, 4, 3, 32, 9, 10, 1 }, 555)]
-        public void Contains_ReturnsFalseIfItemIsFound(int[] array, int itemToFind)
+        public void Contains_ReturnsFalseIfItemIsNotFound(int[] array, int itemToFind)
         {
             var pq = new PriorityQueue<int>();
             foreach (var item in array) pq.Add(item);

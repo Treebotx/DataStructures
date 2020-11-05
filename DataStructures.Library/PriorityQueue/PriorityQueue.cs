@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
 
 namespace DataStructures.Library
 {
     public class PriorityQueue<T> : IPriorityQueue<T> where T : IComparable, IComparable<T>
     {
         private List<T> _heap;
+        private Dictionary<T, List<int>> _map;
 
         public int Size => _heap.Count;
+        private int LastItem => Size - 1;
         public bool IsEmpty => Size == 0;
 
         public PriorityQueue() : this(16) { }
@@ -16,12 +18,21 @@ namespace DataStructures.Library
         public PriorityQueue(int capacity)
         {
             _heap = new List<T>(capacity);
+            _map = new Dictionary<T, List<int>>();
         }
 
         public PriorityQueue(ICollection<T> collection)
         {
-            _heap = new List<T>(collection);
-            Heapify();
+
+            _heap = new List<T>(collection.Count);
+            _map = new Dictionary<T, List<int>>();
+
+            foreach (var item in collection)
+            {
+                _heap.Add(item);
+                AddToMap(item, LastItem);
+            }
+            if (!IsEmpty) Heapify();
         }
 
         private void Heapify()
@@ -32,13 +43,15 @@ namespace DataStructures.Library
         public void Add(T item)
         {
             _heap.Add(item);
+            AddToMap(item, LastItem);
 
-            Swim(Size - 1);
+            Swim(LastItem);
         }
 
         public void Clear()
         {
             _heap.Clear();
+            _map.Clear();
         }
 
         public bool Contains(T item)
@@ -48,6 +61,7 @@ namespace DataStructures.Library
 
         public T Peek()
         {
+            if (IsEmpty) throw new InvalidOperationException();
             return _heap[0];
         }
 
@@ -88,14 +102,18 @@ namespace DataStructures.Library
 
         private int IndexContaining(T item)
         {
-            return _heap.IndexOf(item);
+            //return _heap.IndexOf(item);
+            if (!_map.ContainsKey(item)) return -1;
+            return _map[item].First();
         }
 
         private void RemoveIndex(int index)
         {
-            Swap(index, _heap.Count - 1);
-            _heap.RemoveAt(_heap.Count - 1);
+            Swap(index, LastItem);
+            RemoveFromMap(_heap[LastItem], LastItem);
+            _heap.RemoveAt(LastItem);
 
+            if (Size == 0 || index >= Size) return;
             Sink(index);
             Swim(index);
         }
@@ -105,7 +123,7 @@ namespace DataStructures.Library
             if (index == 0) return;
 
             var parent = Parent(index);
-            if (!Less(parent, index))
+            if (Less(index, parent))
             {
                 Swap(parent, index);
                 Swim(parent);
@@ -119,7 +137,7 @@ namespace DataStructures.Library
 
             var s = Less(l, r) ? l : r;
 
-            if (!Less(index, s))
+            if (Less(s, index))
             {
                 Swap(index, s);
                 Sink(s);
@@ -128,9 +146,36 @@ namespace DataStructures.Library
 
         private void Swap(int i, int j)
         {
+            if (i == j) return;
+            MapSwap(i, _heap[i], j, _heap[j]);
             var k = _heap[i];
             _heap[i] = _heap[j];
             _heap[j] = k;
+        }
+
+        private void AddToMap(T item, int index)
+        {
+            if (!_map.ContainsKey(item)) _map[item] = new List<int>();
+            _map[item].Add(index);
+        }
+
+        private void RemoveFromMap(T item, int index)
+        {
+            var list = _map[item];
+            list.Remove(index);
+            if (list.Count == 0) _map.Remove(item);
+        }
+
+        private void MapSwap(int index1, T item1, int index2, T item2)
+        {
+            ListAddRemove(_map[item1], index1, index2);
+            ListAddRemove(_map[item2], index2, index1);
+        }
+
+        private void ListAddRemove(List<int> list, int toRemove, int toAdd)
+        {
+            list.Remove(toRemove);
+            list.Add(toAdd);
         }
 
         private bool Less(int i, int j)
