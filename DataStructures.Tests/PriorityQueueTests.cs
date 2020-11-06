@@ -189,7 +189,7 @@ namespace DataStructures.Tests
             var pq = new PriorityQueue<int>(nbrOfElements);
             foreach (var i in Enumerable.Range(0, nbrOfElements)) pq.Add(random.Next());
 
-            Assert.True(pq.IsItMinHeap());
+            Assert.True(pq.IsItMinHeap(0));
         }
 
         [Theory]
@@ -204,7 +204,7 @@ namespace DataStructures.Tests
             var collection = Enumerable.Range(0, nbrOfElements).Select(x => random.Next()).ToArray();
             var pq = new PriorityQueue<int>(collection);
 
-            Assert.True(pq.IsItMinHeap());
+            Assert.True(pq.IsItMinHeap(0));
         }
     }
 }

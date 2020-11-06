@@ -113,7 +113,7 @@ namespace DataStructures.Library
             RemoveFromMap(_heap[LastItem], LastItem);
             _heap.RemoveAt(LastItem);
 
-            if (Size == 0 || index >= Size) return;
+            if (index >= Size) return;
             Sink(index);
             Swim(index);
         }
@@ -185,14 +185,17 @@ namespace DataStructures.Library
             return (_heap[i].CompareTo(_heap[j]) <= 0);
         }
 
-        public bool IsItMinHeap()
+        public bool IsItMinHeap(int index)
         {
-            for (int i = 0; i < ((Size + 1) / 2); i++)
-            {
-                if (!Less(i, LeftChild(i))) return false;
-                if (!Less(i, RightChild(i))) return false;
-            }
-            return true;
+            if (index >= Size) return true;
+
+            var l = LeftChild(index);
+            var r = RightChild(index);
+
+            if (!Less(index, LeftChild(index))) return false;
+            if (!Less(index, RightChild(index))) return false;
+
+            return IsItMinHeap(l) && IsItMinHeap(r);
         }
     }
 }
