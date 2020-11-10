@@ -167,6 +167,7 @@ namespace DataStructures.Tests
         //      A
 
         [Theory]
+        [InlineData(new char[] { }, new char[] { })]
         [InlineData(new char[] { 'M', 'J', 'S', 'B', 'N', 'Z', 'A' }, new char[] {'A', 'B', 'J', 'M', 'N', 'S', 'Z'})]
         public void Traverse_InOrderTraversal(char[] array, char[] expected)
         {
@@ -174,9 +175,11 @@ namespace DataStructures.Tests
 
             var i = 0;
             foreach (var item in bst.Traverse(TreeTraversalOrder.IN_ORDER)) Assert.Equal(expected[i++], item);
+            Assert.Equal(array.Length, i);
         }
 
         [Theory]
+        [InlineData(new char[] { }, new char[] { })]
         [InlineData(new char[] { 'M', 'J', 'S', 'B', 'N', 'Z', 'A' }, new char[] { 'M', 'J', 'B', 'A', 'S', 'N', 'Z' })]
         public void Traverse_PreOrderTraversal(char[] array, char[] expected)
         {
@@ -184,9 +187,11 @@ namespace DataStructures.Tests
 
             var i = 0;
             foreach (var item in bst.Traverse(TreeTraversalOrder.PRE_ORDER)) Assert.Equal(expected[i++], item);
+            Assert.Equal(array.Length, i);
         }
 
         [Theory]
+        [InlineData(new char[] { }, new char[] { })]
         [InlineData(new char[] { 'M', 'J', 'S', 'B', 'N', 'Z', 'A' }, new char[] { 'A', 'B', 'J', 'N', 'Z', 'S', 'M' })]
         public void Traverse_PostOrderTraversal(char[] array, char[] expected)
         {
@@ -194,9 +199,11 @@ namespace DataStructures.Tests
 
             var i = 0;
             foreach (var item in bst.Traverse(TreeTraversalOrder.POST_ORDER)) Assert.Equal(expected[i++], item);
+            Assert.Equal(array.Length, i);
         }
 
         [Theory]
+        [InlineData(new char[] { }, new char[] { })]
         [InlineData(new char[] { 'M', 'J', 'S', 'B', 'N', 'Z', 'A' }, new char[] { 'M', 'J', 'S', 'B', 'N', 'Z', 'A' })]
         public void Traverse_LevelOrderTraversal(char[] array, char[] expected)
         {
@@ -204,6 +211,7 @@ namespace DataStructures.Tests
 
             var i = 0;
             foreach (var item in bst.Traverse(TreeTraversalOrder.LEVEL_ORDER)) Assert.Equal(expected[i++], item);
+            Assert.Equal(array.Length, i);
         }
     }
 }

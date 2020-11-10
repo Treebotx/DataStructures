@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 
 namespace DataStructures.Library
 {
@@ -110,52 +108,43 @@ namespace DataStructures.Library
             switch (order)
             {
                 case TreeTraversalOrder.PRE_ORDER:
-                    foreach (var i in InOrderTraversal(root, order)) yield return i;
+                    foreach (var i in OrderTraversal(root, order)) yield return i;
                     break;
                 case TreeTraversalOrder.IN_ORDER:
-                    foreach (var i in InOrderTraversal(root, order)) yield return i;
+                    foreach (var i in OrderTraversal(root, order)) yield return i;
                     break;
                 case TreeTraversalOrder.POST_ORDER:
-                    foreach (var i in InOrderTraversal(root, order)) yield return i;
+                    foreach (var i in OrderTraversal(root, order)) yield return i;
                     break;
                 case TreeTraversalOrder.LEVEL_ORDER:
-                    foreach (var i in LevelOrderTraversal()) yield return i;
+                    foreach (var i in LevelOrderTraversal(root)) yield return i;
                     break;
                 default:
                     throw new NotImplementedException();
             }
-            //if (order == TreeTraversalOrder.PRE_ORDER
-            //    || order == TreeTraversalOrder.IN_ORDER
-            //    || order == TreeTraversalOrder.POST_ORDER)
-            //{
-            //    foreach (var i in InOrderTraversal(root, order)) yield return i;
-            //}
-            //else
-            //{
-            //    throw new NotImplementedException();
-            //}
         }
 
-        private IEnumerable<T> InOrderTraversal(Node node, TreeTraversalOrder order)
+        private IEnumerable<T> OrderTraversal(Node node, TreeTraversalOrder order)
         {
             if (node == null) yield break;
             if (order == TreeTraversalOrder.PRE_ORDER) yield return node.Data;
-            foreach (var i in InOrderTraversal(node.Left, order)) yield return i;
+            foreach (var i in OrderTraversal(node.Left, order)) yield return i;
             if (order == TreeTraversalOrder.IN_ORDER) yield return node.Data;
-            foreach (var i in InOrderTraversal(node.Right, order)) yield return i;
+            foreach (var i in OrderTraversal(node.Right, order)) yield return i;
             if (order == TreeTraversalOrder.POST_ORDER) yield return node.Data;
         }
 
-        private IEnumerable<T> LevelOrderTraversal()
+        private IEnumerable<T> LevelOrderTraversal(Node node)
         {
+            if (node == null) yield break;
             var q = new Queue<Node>();
-            q.Enqueue(root);
+            q.Enqueue(node);
             while (q.Count > 0)
             {
-                var node = q.Dequeue();
-                yield return node.Data;
-                if (node.Left != null) q.Enqueue(node.Left);
-                if (node.Right != null) q.Enqueue(node.Right);
+                var n = q.Dequeue();
+                yield return n.Data;
+                if (n.Left != null) q.Enqueue(n.Left);
+                if (n.Right != null) q.Enqueue(n.Right);
             }
         }
 
