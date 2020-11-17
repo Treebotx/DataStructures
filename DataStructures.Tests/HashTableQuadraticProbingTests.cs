@@ -1,5 +1,6 @@
 ﻿using DataStructures.Library;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace DataStructures.Tests
@@ -266,8 +267,112 @@ namespace DataStructures.Tests
             Assert.Equal(expected, ht.Size);
         }
 
-        // ToDo: Make sure tombstones successfully removed on resize
-        // ToDo: Tombstones are 'compressed' when skipped in a find
-        // 
+        [Theory]
+        [InlineData(new int[] { })]
+        [InlineData(new int[] { 0 })]
+        [InlineData(new int[] { 11, 5, 7, 8, 9 })]
+        public void Clear_SizeResetToZeroAndIsEmpty(int[] array)
+        {
+            var ht = new HashTableQuadraticProbing<int, int>(array.Length);
+            foreach (var i in array) ht.Insert(i, i);
+
+            ht.Clear();
+
+            Assert.True(ht.IsEmpty);
+            Assert.Equal(0, ht.Size);
+        }
+
+        [Theory]
+        [InlineData(new int[] { })]
+        [InlineData(new int[] { 0 })]
+        [InlineData(new int[] { 11, 5, 7, 8, 9 })]
+        public void Clear_KeysNoLongerContainedInHashTable(int[] array)
+        {
+            var ht = new HashTableQuadraticProbing<int, int>(10);
+            foreach (var i in array) ht.Insert(i, i);
+
+            ht.Clear();
+
+            foreach (var i in array) Assert.False(ht.ContainsKey(i));
+        }
+
+        [Theory]
+        [InlineData(new int[] { })]
+        [InlineData(new int[] { 0 })]
+        [InlineData(new int[] { 11, 5, 7, 8, 9 })]
+        public void Clear_CanStillAddItemsAfterClear(int[] array)
+        {
+            var ht = new HashTableQuadraticProbing<int, int>(10);
+            foreach (var i in array) ht.Insert(i, i);
+            ht.Clear();
+
+            foreach (var i in array) ht.Insert(i, i);
+
+            foreach (var i in array) Assert.True(ht.ContainsKey(i));
+        }
+
+        [Theory]
+        [InlineData(new object[] { new string[] { } })]
+        [InlineData(new object[] { new string[] { "1", "11" } })]
+        [InlineData(new object[] { new string[] { "12", "22", "32", "42" } })]
+        public void GetKeys_ReturnsAllTheKeysAdded(string[] array)
+        {
+            var ht = new HashTableQuadraticProbing<string, string>(array.Length);
+            foreach (var i in array) ht.Insert(i, i);
+
+            var listOfKeys = ht.GetKeys().ToList();
+
+            Assert.Equal(array.Length, listOfKeys.Count);
+            foreach (var i in array) Assert.Contains(i, listOfKeys);
+        }
+
+        [Theory]
+        [InlineData(new string[] { "1" }, "1")]
+        [InlineData(new string[] { "1", "11" }, "11")]
+        [InlineData(new string[] { "12", "22", "32", "42" }, "22")]
+        public void GetKeys_SkipsRemovedKeys(string[] array, string keyToRemove)
+        {
+            var ht = new HashTableQuadraticProbing<string, string>(array.Length);
+            foreach (var i in array) ht.Insert(i, i);
+            var expected = ht.Size - 1;
+            ht.TryRemove(keyToRemove, out _);
+
+            var listOfKeys = ht.GetKeys().ToList();
+
+            Assert.Equal(expected, listOfKeys.Count);
+            Assert.DoesNotContain(keyToRemove, listOfKeys);
+        }
+
+        [Theory]
+        [InlineData(new object[] { new string[] { } })]
+        [InlineData(new object[] { new string[] { "1", "11" } })]
+        [InlineData(new object[] { new string[] { "12", "22", "32", "42" } })]
+        public void GetValues_ReturnsAllTheValuesAdded(string[] array)
+        {
+            var ht = new HashTableQuadraticProbing<string, string>(array.Length);
+            foreach (var i in array) ht.Insert(i, i);
+
+            var listOfValues = ht.GetValues().ToList();
+
+            Assert.Equal(array.Length, listOfValues.Count);
+            foreach (var i in array) Assert.Contains(i, listOfValues);
+        }
+
+        [Theory]
+        [InlineData(new string[] { "1" }, new int[] { 555 }, "1", 555)]
+        [InlineData(new string[] { "1", "11" }, new int[] { 60, 90 }, "11", 90)]
+        [InlineData(new string[] { "12", "22", "32", "42" }, new int[] { 60, 90, 2, 679 }, "32", 2)]
+        public void GetValues_SkipsRemovedKeys(string[] array, int[] values, string keyToRemove, int valueRemoved)
+        {
+            var ht = new HashTableQuadraticProbing<string, int>(array.Length);
+            for (var i = 0; i < array.Length; i++) ht.Insert(array[i], values[i]);
+            var expected = ht.Size - 1;
+            ht.TryRemove(keyToRemove, out _);
+
+            var listOfValues = ht.GetValues().ToList();
+
+            Assert.Equal(expected, listOfValues.Count);
+            Assert.DoesNotContain(valueRemoved, listOfValues);
+        }
     }
 }

@@ -150,17 +150,25 @@ namespace DataStructures.Library
 
         public void Clear()
         {
-            throw new System.NotImplementedException();
+            for (var i = 0; i < _table.Length; i++) _table[i] = null;
+            _actualSize = 0;
+            _tombStoneCount = 0;
         }
 
         public IEnumerable<TKey> GetKeys()
         {
-            throw new System.NotImplementedException();
+            foreach (var item in _table)
+            {
+                if (item != null && !item.TOMBSTONE) yield return item.Key;
+            }
         }
 
         public IEnumerable<TValue> GetValues()
         {
-            throw new System.NotImplementedException();
+            foreach (var item in _table)
+            {
+                if (item != null && !item.TOMBSTONE) yield return item.Value;
+            }
         }
     }
 }

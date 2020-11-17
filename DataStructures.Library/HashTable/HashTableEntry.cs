@@ -46,6 +46,7 @@ namespace DataStructures.Library
 
         public override string ToString()
         {
+            if (TOMBSTONE) return "TOMBSTONE";
             return $"{Key} => {Value}";
         }
     }
