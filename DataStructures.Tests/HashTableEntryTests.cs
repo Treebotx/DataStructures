@@ -34,13 +34,24 @@ namespace DataStructures.Tests
         }
 
         [Fact]
-        public void EntryHasKeyValueAndHash()
+        public void EntryHasKeyValueAndHashAndIsNotTombstone()
         {
             var hte = new HashTableEntry<int, int>(5, 6);
 
             Assert.Equal(5, hte.Key);
             Assert.Equal(6, hte.Value);
             Assert.Equal(hte.Key.GetHashCode(), hte.Hash);
+            Assert.False(hte.TOMBSTONE);
+        }
+
+        [Fact]
+        public void MakeTombstoneSetsTombstoneToTrue()
+        {
+            var hte = new HashTableEntry<int, int>(5, 6);
+
+            hte.MakeTombstone();
+
+            Assert.True(hte.TOMBSTONE);
         }
 
         [Fact]

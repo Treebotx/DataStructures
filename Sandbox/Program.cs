@@ -7,12 +7,22 @@ namespace Sandbox
     {
         static void Main(string[] args)
         {
+
+
+            int nextPowerOfTwo(int value)
+            {
+                var x = Math.Ceiling(Math.Log(value, 2));
+                return (int)(Math.Pow(2, x));
+            }
             //new Mandy().Run();
 
             //PrimeNumberCalculator.Run();
 
             //var x = 5;
             //Console.WriteLine(6.IsPrime());
+
+            var x = nextPowerOfTwo(17);
+            Console.WriteLine(x);
 
             var bst = new BinarySearchTree<int>(new int[] { 7, 0, 3, 6, 2, 1, 9, 4, 5, 8 });
 

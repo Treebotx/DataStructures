@@ -4,15 +4,24 @@ namespace DataStructures.Library
 {
     public class HashTableEntry<TKey, TValue> : IEquatable<HashTableEntry<TKey, TValue>>
     {
-        public int Hash { get; }
-        public TKey Key { get; }
+        public int Hash { get; private set; }
+        public TKey Key { get; private set; }
         public TValue Value { get; set; }
+        public bool TOMBSTONE { get; private set; } = false;
 
         public HashTableEntry(TKey key, TValue value)
         {
             Key = key;
             Value = value;
             Hash = key.GetHashCode();
+        }
+
+        public void MakeTombstone()
+        {
+            Hash = default;
+            Key = default;
+            Value = default;
+            TOMBSTONE = true;
         }
 
         public bool Equals(HashTableEntry<TKey, TValue> other)
