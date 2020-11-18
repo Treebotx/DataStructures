@@ -361,10 +361,10 @@ namespace DataStructures.Tests
         [Theory]
         [InlineData(new string[] { "1" }, new int[] { 555 }, "1", 555)]
         [InlineData(new string[] { "1", "11" }, new int[] { 60, 90 }, "11", 90)]
-        [InlineData(new string[] { "12", "22", "32", "42" }, new int[] { 60, 90, 2, 679 }, "32", 2)]
+        [InlineData(new string[] { "12", "22", "32", "42", "99" }, new int[] { 60, 90, 2, 679, 7 }, "32", 2)]
         public void GetValues_SkipsRemovedKeys(string[] array, int[] values, string keyToRemove, int valueRemoved)
         {
-            var ht = new HashTableQuadraticProbing<string, int>(array.Length);
+            var ht = new HashTableQuadraticProbing<string, int>(9);
             for (var i = 0; i < array.Length; i++) ht.Insert(array[i], values[i]);
             var expected = ht.Size - 1;
             ht.TryRemove(keyToRemove, out _);
