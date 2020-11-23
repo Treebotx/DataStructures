@@ -47,6 +47,7 @@ namespace DataStructures.Library
             if (_table[index] == null)
             {
                 if (_actualSize >= _threshold) ResizeTable();
+                index = FindKey(key);
                 _table[index] = new HashTableEntry<TKey, TValue>(key, value);
                 _actualSize++;
             }

@@ -4,7 +4,7 @@ namespace DataStructures.Library
 {
     public class HashTableQuadraticProbing<TKey, TValue> : HashTableOpenAddressingBase<TKey, TValue>
     {
-        public HashTableQuadraticProbing() { }
+        public HashTableQuadraticProbing() : base() { }
         public HashTableQuadraticProbing(int capacity) : base(capacity) { }
         public HashTableQuadraticProbing(int capacity, double loadFactor) : base(capacity, loadFactor) { }
 
