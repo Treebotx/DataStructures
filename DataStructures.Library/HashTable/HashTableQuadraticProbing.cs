@@ -26,7 +26,7 @@ namespace DataStructures.Library
 
         protected override int Probe(int x)
         {
-            return x * x + x;
+            return (x * x + x) / 2;
         }
     }
 }
