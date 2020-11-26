@@ -24,7 +24,7 @@ namespace Sandbox
             }
             //new Mandy().Run();
 
-            //PrimeNumberCalculator.Run();
+            PrimeNumberRunner.Run();
 
             //var x = 5;
             //Console.WriteLine(6.IsPrime());

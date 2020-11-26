@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace DataStructures.Library
 {
@@ -13,41 +11,6 @@ namespace DataStructures.Library
 
     public class PrimeNumberCalculator
     {
-        public static void Run()
-        {
-            var primes = PrimeSieve(200);
-
-            foreach (var p in primes)
-            {
-                Console.Write($"{p}, ");
-            }
-
-            Console.WriteLine();
-
-            Console.WriteLine("no input to end...");
-
-            while (true)
-            {
-                var input = Console.ReadLine();
-
-                if (string.IsNullOrWhiteSpace(input)) break;
-
-                if (int.TryParse(input, out var result))
-                {
-                    Console.WriteLine($"{result} is{(IsPrime(result) ? "" : " not")} a prime");
-                }
-            }
-
-            Console.WriteLine("input to end...");
-
-            foreach (var n in EnumeratePrimes())
-            {
-                Console.Write(n);
-                var input = Console.ReadLine();
-                if (!string.IsNullOrEmpty(input)) break;
-            }
-        }
-
         public static bool IsPrime(int number)
         {
             if (number == 2) return true;
@@ -96,16 +59,13 @@ namespace DataStructures.Library
 
         private static IEnumerable<int> sieve(IEnumerable<int> s)
         {
-            var n = s.FirstOrDefault();
+            var n = s.First();
 
-            if (n != default)
+            yield return n;
+
+            foreach (var p in sieve(s.Skip(1).Where(x => x % n != 0)))
             {
-                yield return n;
-
-                foreach (var p in sieve(s.Skip(1).Where(x => x % n != 0)))
-                {
-                    yield return p;
-                }
+                yield return p;
             }
         }
 
@@ -114,6 +74,44 @@ namespace DataStructures.Library
             foreach(var n in sieve(nats(2)))
             {
                 yield return n;
+            }
+        }
+    }
+
+    public class PrimeNumberRunner
+    {
+        public static void Run()
+        {
+            var primes = PrimeNumberCalculator.PrimeSieve(200);
+
+            foreach (var p in primes)
+            {
+                Console.Write($"{p}, ");
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine("no input to end...");
+
+            while (true)
+            {
+                var input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input)) break;
+
+                if (int.TryParse(input, out var result))
+                {
+                    Console.WriteLine($"{result} is{(PrimeNumberCalculator.IsPrime(result) ? "" : " not")} a prime");
+                }
+            }
+
+            Console.WriteLine("input to end...");
+
+            foreach (var n in PrimeNumberCalculator.EnumeratePrimes())
+            {
+                Console.Write(n);
+                var input = Console.ReadLine();
+                if (!string.IsNullOrEmpty(input)) break;
             }
         }
     }
