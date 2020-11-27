@@ -22,9 +22,23 @@ namespace Sandbox
                 var x = Math.Ceiling(Math.Log(value, 2));
                 return (int)(Math.Pow(2, x));
             }
+
+            var sa1 = new SuffixArray("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+            var sa2 = new SuffixArray("ABABABAABB");
+            var sa3 = new SuffixArray("ABBABAABAA");
+            var sa4 = new SuffixArray("BAAAAB0ABAAAAB1BABA2ABA3AAB4BBBB5BB");
+            var sa5 = new SuffixArray("ABCDE");
+            //for (int i = 2, k = 0; i < 10; i++, k++) Console.WriteLine($"i:{i}, k:{k}");
+
+            Console.WriteLine(sa1);
+            Console.WriteLine(sa2);
+            Console.WriteLine(sa3);
+            Console.WriteLine(sa4);
+            Console.WriteLine(sa5);
+
             //new Mandy().Run();
 
-            PrimeNumberRunner.Run();
+            //PrimeNumberRunner.Run();
 
             //var x = 5;
             //Console.WriteLine(6.IsPrime());
