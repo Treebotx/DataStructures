@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DataStructures.Library
@@ -53,13 +54,7 @@ namespace DataStructures.Library
         {
             var result = new List<string>();
 
-            for (var i = 0; i < _length; i++)
-            {
-                for (var j = 1; j <= _length - i; j++)
-                {
-                    result.Add(new string(_text, i, j));
-                }
-            }
+            FindSubstrings(result);
 
             return result;
         }
@@ -67,6 +62,37 @@ namespace DataStructures.Library
         public int CountOfAllSubstrings()
         {
             return _length * (_length + 1) / 2;
+        }
+
+        public int CountOfUniqueSubstrings()
+        {
+            return CountOfAllSubstrings() - CountOfNonUniqueSubstrings();
+        }
+
+        private int CountOfNonUniqueSubstrings()
+        {
+            BuildLCPArray();
+            return _longestCommonPrefixArray.Sum();
+        }
+
+        public List<string> GetUniqueSubstrings()
+        {
+            var result = new HashSet<string>();
+
+            FindSubstrings(result);
+
+            return result.ToList();
+        }
+
+        private void FindSubstrings(ICollection<string> result)
+        {
+            for (var i = 0; i < _length; i++)
+            {
+                for (var j = 1; j <= _length - i; j++)
+                {
+                    result.Add(new string(_text, i, j));
+                }
+            }
         }
 
         // Use Kasai algorithm to build the LCP array

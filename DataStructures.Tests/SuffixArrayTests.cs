@@ -38,7 +38,7 @@ namespace DataStructures.Tests
         [InlineData("AZ", 3)]
         [InlineData("ABABBAB", 28)]
         [InlineData("AZAZA", 15)]
-        [InlineData("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK", 1275)]
+        [InlineData("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK", 1275)]
         public void CountOfAllSubstrings(string text, int expected)
         {
             var sa = new SuffixArray(text);
@@ -56,6 +56,42 @@ namespace DataStructures.Tests
             var sa = new SuffixArray(text);
 
             var subStrings = sa.GetAllSubstrings();
+
+            Assert.Equal(expected.Length, subStrings.Count);
+
+            foreach (var item in expected) Assert.Contains(item, subStrings);
+            foreach (var item in subStrings) Assert.Contains(item, expected);
+        }
+
+        [Theory]
+        [InlineData("A", 1)]
+        [InlineData("AA", 2)]
+        [InlineData("AZ", 3)]
+        [InlineData("AAA", 3)]
+        [InlineData("AAAA", 4)]
+        [InlineData("AAZA", 8)]
+        [InlineData("ABABBAB", 19)]
+        [InlineData("ABCDEFG", 28)]
+        [InlineData("AZAZA", 9)]
+        [InlineData("ABCDE", 15)]
+        public void CountOfUniqueSubstrings(string text, int expected)
+        {
+            var sa = new SuffixArray(text);
+
+            Assert.Equal(expected, sa.CountOfUniqueSubstrings());
+        }
+
+        [Theory]
+        [InlineData("A", new string[] { "A" })]
+        [InlineData("AA", new string[] { "A", "AA" })]
+        [InlineData("AZ", new string[] { "A", "AZ", "Z" })]
+        [InlineData("ABCD", new string[] { "ABCD", "ABC", "AB", "A", "BCD", "BC", "B", "CD", "C", "D" })]
+        [InlineData("AZAZA", new string[] { "A", "AZ", "AZA", "AZAZ", "AZAZA", "Z", "ZA", "ZAZ", "ZAZA" })]
+        public void GetUniqueSubstrings_ReturnsAllSubstrings(string text, string[] expected)
+        {
+            var sa = new SuffixArray(text);
+
+            var subStrings = sa.GetUniqueSubstrings();
 
             Assert.Equal(expected.Length, subStrings.Count);
 
