@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace DataStructures.Library
@@ -46,6 +47,26 @@ namespace DataStructures.Library
             //ConstructLCP();
 
             _constructedLCP = true;
+        }
+
+        public List<string> GetAllSubstrings()
+        {
+            var result = new List<string>();
+
+            for (var i = 0; i < _length; i++)
+            {
+                for (var j = 1; j <= _length - i; j++)
+                {
+                    result.Add(new string(_text, i, j));
+                }
+            }
+
+            return result;
+        }
+
+        public int CountOfAllSubstrings()
+        {
+            return _length * (_length + 1) / 2;
         }
 
         // Use Kasai algorithm to build the LCP array

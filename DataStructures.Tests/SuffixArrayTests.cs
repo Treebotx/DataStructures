@@ -31,5 +31,36 @@ namespace DataStructures.Tests
 
             Assert.Equal(lcpValues, sa.GetLongestCommonPrefixArray());
         }
+
+        [Theory]
+        [InlineData("A", 1)]
+        [InlineData("AA", 3)]
+        [InlineData("AZ", 3)]
+        [InlineData("ABABBAB", 28)]
+        [InlineData("AZAZA", 15)]
+        [InlineData("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK", 1275)]
+        public void CountOfAllSubstrings(string text, int expected)
+        {
+            var sa = new SuffixArray(text);
+
+            Assert.Equal(expected, sa.CountOfAllSubstrings());
+        }
+
+        [Theory]
+        [InlineData("A", new string[] { "A" })]
+        [InlineData("AA", new string[] { "A", "AA", "A" })]
+        [InlineData("AZ", new string[] { "A", "AZ", "Z" })]
+        [InlineData("AZAZA", new string[] { "A", "AZ", "AZA", "AZAZ", "AZAZA", "Z", "ZA", "ZAZ", "ZAZA", "A", "AZ", "AZA", "Z", "ZA", "A" })]
+        public void GetAllSubstrings_ReturnsAllSubstrings(string text, string[] expected)
+        {
+            var sa = new SuffixArray(text);
+
+            var subStrings = sa.GetAllSubstrings();
+
+            Assert.Equal(expected.Length, subStrings.Count);
+
+            foreach (var item in expected) Assert.Contains(item, subStrings);
+            foreach (var item in subStrings) Assert.Contains(item, expected);
+        }
     }
 }

@@ -28,6 +28,11 @@ namespace Sandbox
             var sa3 = new SuffixArray("ABBABAABAA");
             var sa4 = new SuffixArray("BAAAAB0ABAAAAB1BABA2ABA3AAB4BBBB5BB");
             var sa5 = new SuffixArray("ABCDE");
+            var sa6 = new SuffixArray("AZAZA");
+
+            var substrings = sa6.GetAllSubstrings();
+            Console.WriteLine($"Count of substrings: {substrings.Count}");
+            foreach (var item in substrings) Console.WriteLine(item);
             //for (int i = 2, k = 0; i < 10; i++, k++) Console.WriteLine($"i:{i}, k:{k}");
 
             Console.WriteLine(sa1);
