@@ -129,7 +129,6 @@ namespace DataStructures.Tests
         [InlineData(new object[] { new string[] { "a" } })]
         [InlineData(new object[] { new string[] { "ab" } })]
         [InlineData(new object[] { new string[] { "abc", "abgl", "cdf", "abcd", "lmn" } })]
-        [InlineData(new object[] { new string[] { "abc", "abgl", "cdf", "abcd", "lmn" } })]
         [InlineData(new object[] { new string[] { "abgl", "a", "xxxxxxxxxxxx" } })]
         public void Enumerator_ReturnsAllWordsAddedToTheTrie(string[] array)
         {
