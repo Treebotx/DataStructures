@@ -87,7 +87,7 @@ namespace DataStructures.Tests
         [InlineData("AZ", new string[] { "A", "AZ", "Z" })]
         [InlineData("ABCD", new string[] { "ABCD", "ABC", "AB", "A", "BCD", "BC", "B", "CD", "C", "D" })]
         [InlineData("AZAZA", new string[] { "A", "AZ", "AZA", "AZAZ", "AZAZA", "Z", "ZA", "ZAZ", "ZAZA" })]
-        public void GetUniqueSubstrings_ReturnsAllSubstrings(string text, string[] expected)
+        public void GetUniqueSubstrings_ReturnsAllUniqueSubstrings(string text, string[] expected)
         {
             var sa = new SuffixArray(text);
 

@@ -77,11 +77,12 @@ namespace DataStructures.Library
 
         public List<string> GetUniqueSubstrings()
         {
-            var result = new HashSet<string>();
+            //var result = new HashSet<string>();
+            var result = new List<string>();
 
-            FindSubstrings(result);
+            FindUniqueSubstringsUsingLcp(result);
 
-            return result.ToList();
+            return result;
         }
 
         private void FindSubstrings(ICollection<string> result)
@@ -91,6 +92,22 @@ namespace DataStructures.Library
                 for (var j = 1; j <= _length - i; j++)
                 {
                     result.Add(new string(_text, i, j));
+                }
+            }
+        }
+
+        private void FindUniqueSubstringsUsingLcp(ICollection<string> result)
+        {
+            BuildLCPArray();
+
+            for (var i = 0; i < _longestCommonPrefixArray.Length; i++)
+            {
+                var lcp = _longestCommonPrefixArray[i];
+                var suffixStart = _suffixArray[i];
+
+                for (var length = lcp + 1; length <= (_length - suffixStart); length++)
+                {
+                    result.Add(new string(_text, suffixStart, length));
                 }
             }
         }
