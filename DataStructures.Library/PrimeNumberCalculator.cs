@@ -48,22 +48,22 @@ namespace DataStructures.Library
             return primes;
         }
 
-        private static IEnumerable<int> nats(int start)
+        private static IEnumerable<int> NaturalNumbers(int start)
         {
             yield return start;
-            foreach (var n in nats(start + 1))
+            foreach (var n in NaturalNumbers(start + 1))
             {
                 yield return n;
             }
         }
 
-        private static IEnumerable<int> sieve(IEnumerable<int> s)
+        private static IEnumerable<int> Sieve(IEnumerable<int> s)
         {
             var n = s.First();
 
             yield return n;
 
-            foreach (var p in sieve(s.Skip(1).Where(x => x % n != 0)))
+            foreach (var p in Sieve(s.Skip(1).Where(x => x % n != 0)))
             {
                 yield return p;
             }
@@ -71,7 +71,7 @@ namespace DataStructures.Library
 
         public static IEnumerable<int> EnumeratePrimes()
         {
-            foreach(var n in sieve(nats(2)))
+            foreach(var n in Sieve(NaturalNumbers(2)))
             {
                 yield return n;
             }
