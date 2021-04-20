@@ -76,6 +76,17 @@ namespace DataStructures.Library
                 yield return n;
             }
         }
+
+        public static IEnumerable<int> PrimeFactorsOf(int n)
+        {
+            for (int divisor = 2; n > 1; divisor++)
+            {
+                for (; n % divisor == 0; n /= divisor)
+                {
+                    yield return divisor;
+                }
+            }
+        }
     }
 
     public class PrimeNumberRunner

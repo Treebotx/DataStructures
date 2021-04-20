@@ -356,7 +356,7 @@ namespace DataStructures.Tests
             Assert.Equal(array.Length, i);
         }
 
-        public void AddArrayToDynamicArray(DynamicArray<int> dynmaicArray, int[] fromArray)
+        internal void AddArrayToDynamicArray(DynamicArray<int> dynmaicArray, int[] fromArray)
         {
             foreach (var item in fromArray)
             {
