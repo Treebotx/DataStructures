@@ -1,5 +1,7 @@
 ﻿using DataStructures.Library;
+using DataStructures.Library.Sorting;
 using System;
+using System.Collections.Generic;
 
 namespace Sandbox
 {
@@ -7,6 +9,14 @@ namespace Sandbox
     {
         static void Main(string[] args)
         {
+            var list = new List<int> { 5, 4, 3, 2, 1 };
+            var sorter = new InbuiltSort<int>();
+            foreach (var item in list) Console.Write($"{item} : ");
+            Console.WriteLine();
+            sorter.Sort(list);
+            foreach (var item in list) Console.Write($"{item} : ");
+            Console.WriteLine();
+
             var trie = new Trie();
             trie.Add("abc");
             trie.Add("abgl");
@@ -47,7 +57,7 @@ namespace Sandbox
             //Console.WriteLine($"word abgl {trie.DoesWordExist("abgl")}");
             //Console.WriteLine($"word abcd {trie.DoesWordExist("abcd")}");
 
-            Console.ReadLine();
+            //Console.ReadLine();
             // Returns the value of the least significant bit (LSB)
             // lsb(108) = lsb(0b1101100) =     0b100 = 4
             // lsb(104) = lsb(0b1101000) =    0b1000 = 8
