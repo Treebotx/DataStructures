@@ -13,18 +13,11 @@ namespace DataStructures.Library.Sorting
 
                 for (var c = start + 1; c < listToSort.Count; c++)
                 {
-                    if (listToSort[c].CompareTo(listToSort[sm]) < 0) sm = c;
+                    if (listToSort[c].IsLessThan(listToSort[sm])) sm = c;
                 }
 
-                SwapItems(listToSort, start, sm);
+                listToSort.SwapElements(start, sm);
             }
-        }
-
-        private void SwapItems(IList<T> list, int i, int j)
-        {
-            var t = list[i];
-            list[i] = list[j];
-            list[j] = t;
         }
     }
 }

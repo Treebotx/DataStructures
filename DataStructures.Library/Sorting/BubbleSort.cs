@@ -15,11 +15,9 @@ namespace DataStructures.Library.Sorting
                 sorted = true;
                 for (var i = 1; i < (listToSort.Count - offset); i++)
                 {
-                    if (listToSort[i].CompareTo(listToSort[i - 1]) < 0)
+                    if (listToSort[i].IsLessThan(listToSort[i - 1]))
                     {
-                        var temp = listToSort[i];
-                        listToSort[i] = listToSort[i - 1];
-                        listToSort[i - 1] = temp;
+                        listToSort.SwapElements(i, i - 1);
                         sorted = false;
                     }
                 }

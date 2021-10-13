@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataStructures.Library.Sorting
 {
     public class QuickSort<T> : ISorting<T> where T : IComparable<T>
     {
-        private IList<T> list;
+        private IList<T> _list;
 
         public void Sort(IList<T> listToSort)
         {
-            list = listToSort;
+            _list = listToSort;
             InternalSort(0, listToSort.Count - 1);
         }
 
@@ -31,30 +28,18 @@ namespace DataStructures.Library.Sorting
             var pivot = end;
             var left = start;
 
-            for (; left < end && lt(left, pivot); left++) { }
+            for (; left < end && _list[left].IsLessThan(_list[pivot]); left++) { }
             for (var j = left; j < end; j++)
             {
-                if (lt(j, pivot))
+                if (_list[j].IsLessThan(_list[pivot]))
                 {
-                    SwapItems(left, j);
+                    _list.SwapElements(left, j);
                     left++;
                 }
             }
 
-            SwapItems(left, pivot);
+            _list.SwapElements(left, pivot);
             return left;
-        }
-
-        private bool lt(int i, int j)
-        {
-            return list[i].CompareTo(list[j]) < 0;
-        }
-
-        private void SwapItems(int i, int j)
-        {
-            var t = list[i];
-            list[i] = list[j];
-            list[j] = t;
         }
     }
 }

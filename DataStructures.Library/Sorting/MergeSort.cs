@@ -43,7 +43,7 @@ namespace DataStructures.Library.Sorting
             {
                 if (rightIndex < right.Count)
                 {
-                    if (left[leftIndex].CompareTo(right[rightIndex]) <= 0)
+                    if (left[leftIndex].IsLessThan(right[rightIndex]) )
                     {
                         result.Add(left[leftIndex++]);
                     }
@@ -61,42 +61,6 @@ namespace DataStructures.Library.Sorting
             while (rightIndex < right.Count)
             {
                 result.Add(right[rightIndex++]);
-            }
-
-            return result;
-        }
-        private IList<T> MergeListsOrig(IList<T> left, IList<T> right)
-        {
-            var result = new List<T>();
-
-            var leftIndex = 0;
-            var rightIndex = 0;
-
-            while (leftIndex < left.Count || rightIndex < right.Count)
-            {
-                if (leftIndex < left.Count && rightIndex < right.Count)
-                {
-                    if (left[leftIndex].CompareTo(right[rightIndex]) <= 0)
-                    {
-                        result.Add(left[leftIndex]);
-                        leftIndex++;
-                    }
-                    else
-                    {
-                        result.Add(right[rightIndex]);
-                        rightIndex++;
-                    }
-                }
-                else if (leftIndex < left.Count)
-                {
-                    result.Add(left[leftIndex]);
-                    leftIndex++;
-                }
-                else
-                {
-                    result.Add(right[rightIndex]);
-                    rightIndex++;
-                }
             }
 
             return result;
