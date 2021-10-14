@@ -16,5 +16,10 @@ namespace DataStructures.Library.Sorting
         {
             return (left.CompareTo(right) < 0);
         }
+
+        public static bool IsGreaterThan<T>(this T left, T right) where T : IComparable<T>
+        {
+            return (left.CompareTo(right) > 0);
+        }
     }
 }

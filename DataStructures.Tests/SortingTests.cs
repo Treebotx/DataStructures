@@ -13,7 +13,8 @@ namespace DataStructures.Tests
         [InlineData(new int[] { 3, 2, 1 })]
         [InlineData(new int[] { 12, 14, 13, 11, 16, 10, 18, 17 })]
         [InlineData(new int[] { 7, 11, 10, 5, 12, 4, 18, 15 })]
-        [InlineData(new int[] {50, 23, 9, 18, 61, 32 })]
+        [InlineData(new int[] { 50, 23, 9, 18, 61, 32 })]
+        [InlineData(new int[] { 1, 12, 9, 5, 6, 10 })]
         public void SortReturnsDataInOrder(int[] array)
         {
             var sort = GetSortingInstance();
@@ -73,6 +74,14 @@ namespace DataStructures.Tests
         public override ISorting<int> GetSortingInstance()
         {
             return new SelectionSort<int>();
+        }
+    }
+
+    public class HeapSortTests : SortTestsBase
+    {
+        public override ISorting<int> GetSortingInstance()
+        {
+            return new HeapSort<int>();
         }
     }
 }
