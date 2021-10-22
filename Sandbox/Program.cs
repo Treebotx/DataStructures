@@ -9,15 +9,15 @@ namespace Sandbox
     {
         static void Main(string[] args)
         {
-            Console.WriteLine($"Fib 1: {Fibonacci.CalculateFibonacci(1)}");
-            Console.WriteLine($"Fib 2: {Fibonacci.CalculateFibonacci(2)}");
-            Console.WriteLine($"Fib 3: {Fibonacci.CalculateFibonacci(3)}");
-            Console.WriteLine($"Fib 4: {Fibonacci.CalculateFibonacci(4)}");
-            Console.WriteLine($"Fib 5: {Fibonacci.CalculateFibonacci(5)}");
-            Console.WriteLine($"Fib 6: {Fibonacci.CalculateFibonacci(6)}");
-            Console.WriteLine($"Fib 7: {Fibonacci.CalculateFibonacci(7)}");
-            Console.WriteLine($"Fib 8: {Fibonacci.CalculateFibonacci(8)}");
-            Console.WriteLine($"Fib 50: {Fibonacci.CalculateFibonacci(50)}");
+            Console.WriteLine($"Fib 1: {FibonacciCalculator.Fibonacci(1)}");
+            Console.WriteLine($"Fib 2: {FibonacciCalculator.Fibonacci(2)}");
+            Console.WriteLine($"Fib 3: {FibonacciCalculator.Fibonacci(3)}");
+            Console.WriteLine($"Fib 4: {FibonacciCalculator.Fibonacci(4)}");
+            Console.WriteLine($"Fib 5: {FibonacciCalculator.Fibonacci(5)}");
+            Console.WriteLine($"Fib 6: {FibonacciCalculator.Fibonacci(6)}");
+            Console.WriteLine($"Fib 7: {FibonacciCalculator.Fibonacci(7)}");
+            Console.WriteLine($"Fib 8: {FibonacciCalculator.Fibonacci(8)}");
+            Console.WriteLine($"Fib 50: {FibonacciCalculator.Fibonacci(50)}");
             return;
             var list = new List<int> { 5, 4, 3, 2, 1 };
             var sorter = new InbuiltSort<int>();

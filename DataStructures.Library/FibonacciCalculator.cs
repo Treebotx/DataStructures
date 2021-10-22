@@ -1,9 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DataStructures.Library
 {
-    public static class Fibonacci
+    public static class FibonacciCalculator
     {
+        
+
+        public static Func<long, long> Fibonacci = Memoizer.Memoize((long n) =>
+        {
+            if (n <= 2) return 1;
+            return Fibonacci(n - 1) + Fibonacci(n - 2);
+        });
+
         public static long CalculateFibonacci(long n)
         {
             var memo = new Dictionary<long, long>();
